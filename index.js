@@ -7,7 +7,6 @@ const colors = {
 'magenta'     : '#c678dd', 
 'cyan'        : '#56b6c2', 
 'white'       : '#abb2bf', 
-
 'grey'        : '#5c6370', 
 'light red'   : '#be5046', 
 'light yellow': '#d19a66', 
@@ -15,19 +14,29 @@ const colors = {
 'text'        : '#282c34',
 }
 
-window.setInterval(render, 500) // call render 42ms (24 fps)
+window.setInterval(render, 42) // call render 42ms (24 fps)
 
-x1 = 100
-y1 = 50
-x2 = 200
-y2 = 150
-
-function dQuad(quad) {
-    // draw quadrilateral
+function drawQuad(quad, c) {
+    // draw quadrilateral (quad is 4x2 arr of pts, and c is a str of the color
     if (quad.length != 4) {
         console.err("not a quadrilateral")
     }
-    // DAFJKDS:FADS
+    x0 = quad[0][0]
+    y0 = quad[0][1]
+    x1 = quad[1][0]
+    y1 = quad[1][1]
+    x2 = quad[2][0]
+    y2 = quad[2][1]
+    x3 = quad[3][0]
+    y3 = quad[3][1]
+    ctx.fillStyle = colors[c]
+    ctx.beginPath()
+    ctx.moveTo(x0, y0)
+    ctx.lineTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.lineTo(x3, y3)
+    ctx.closePath()
+    ctx.fill()
 }
 
 function render() {
@@ -35,17 +44,55 @@ function render() {
         return
     }
     ctx = document.getElementById('canvas').getContext('2d')
-    console.log(x2)
-    x1 += 10
-    y1 += 10
-    x2 += 10
-    y2 += 10
-
-    ctx.fillStyle = colors['red']
-    ctx.beginPath()
-    ctx.moveTo(10,10)
-    ctx.lineTo(x1, y1)
-    ctx.lineTo(x2, y2)
-    ctx.closePath()
-    ctx.fill()
+    rect = [[87, 4], [132, 400], [97, 81], [173, 216]]
+    drawQuad(rect, 'red')
 }
+
+
+
+
+
+//                                                       //
+//                                                       //
+//                      HTML CANVAS MAGIC                //
+//                                                       //
+//                                                       //
+// adapted from:
+// https://medium.com/@doomgoober/understanding-html-canvas-scaling-and-sizing-c04925d9a830
+document.addEventListener("DOMContentLoaded", () => {
+    const myCanvas = document.getElementById("canvas");
+    const originalHeight = myCanvas.height;
+    const originalWidth = myCanvas.width;
+    canvasrendersize();
+    function canvasrendersize() {
+        const dimensions = getObjectFitSize(
+            myCanvas.clientWidth,
+            myCanvas.clientHeight,
+            myCanvas.width,
+            myCanvas.height
+        );
+        myCanvas.width = dimensions.width;
+        myCanvas.height = dimensions.height;
+
+        const ctx = myCanvas.getContext("2d");
+        const ratio = Math.min(
+            myCanvas.clientWidth / originalWidth,
+            myCanvas.clientHeight / originalHeight
+        );
+        ctx.scale(ratio, ratio);
+    }
+
+    // adapted from: https://www.npmjs.com/package/intrinsic-scale
+    function getObjectFitSize(containerWidth, containerHeight, width, height) {
+        const doRatio = width / height;
+        const cRatio = containerWidth / containerHeight;
+        const targetWidth = 0;
+        const targetHeight = 0;
+
+        if (doRatio > cRatio) {
+            return {width: containerWidth, height: containerWidth / doRatio}
+        } else {
+            return {width: containerHeight * doRatio, height: containerHeight}
+        }
+    }
+})
