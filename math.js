@@ -16,29 +16,31 @@ class math {
         return C
     }
 
-    static resize(A, size) {
-        // resize 2D matrix to 2D matrix
-        if (size.length > 2) {
-            console.error("not implemented\nresize with n dim: " + size.length + "\nof: " + size)
+    static matadd(A, B) {
+        // add two matrices A and B
+        const ret = math.matrix(A.length, A[0].length)
+        for (let i = 0; i < A.length; i++) {
+            for (let j = 0; j < A[0].length; j++) {
+                ret[i][j] = A[i][j] + B[i][j]
+            }
         }
-        if (size[0] != 0) {
-            console.error("not implemented\nresize of nonvector, size=" + size)
-        }
-
-        ret = Array(size).fill(0)
+        return ret
     }
 
     static vec2mat(v) {
-        return Array(1).fill(v)
+        // 3d vec to 3x1 matrix
+        const ret = Array(v.length)
+        for (let i = 0; i < v.length; i++) {
+            ret[i] = [v[i]]
+        }
+        return ret
     }
 
     static mat2vec(A) {
-        if (A.length > 1) {
-            console.error("cannot make vector multiple dimentions: " + A)
-        }
-        ret = Array(A[0].length).fill(0)
+        // 3x1 matrix to 3d vec
+        const ret = Array(A[0].length).fill(0)
         for (let i = 0; i < v.length; i++) {
-            ret[i] = A[0][i]
+            ret[i] = A[i][0]
         }
         return ret
     }
