@@ -94,7 +94,6 @@ function off_screen(con) {
 
 function render() {
     ctx = document.getElementById('canvas').getContext('2d')
-    // clear rectangle
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // replace confetti off screen with new
