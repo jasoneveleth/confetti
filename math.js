@@ -5,8 +5,8 @@ class math {
 
         let C = math.zeros(A.length, B[0].length)
         for (let i = 0; i < C.length; i++) { // (rows of A)
-            for (let j = 0; j < C[0].length; j++) { // (cols of B)
-                for (let k = 0; k < B.length; k++) { // cols of A, rows of B
+            for (let k = 0; k < B.length; k++) { // cols of A, rows of B
+                for (let j = 0; j < C[0].length; j++) { // (cols of B)
                     C[i][j] += A[i][k] * B[k][j]
                 }
             }
