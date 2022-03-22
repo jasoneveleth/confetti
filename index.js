@@ -8,7 +8,9 @@ const PHI = 1.61803398875 // golden ratio
 const SZ = 0.2
 
 
-let confetti = Array(200)
+let confetti = Array(800)
+const Rt = math.zeros(3, 4)
+const K = math.zeros(3, 3)
 
 const colors = {
     // 'dark'        : '#3E4452', 
@@ -37,6 +39,30 @@ function resizeCanvas() {
     const canvas = document.getElementById("canvas");
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
+
+    // extrinsic matrix
+    //[1, 0, 0, t_x]
+    //[0, 1, 0, t_y]
+    //[0, 0, 1, t_z]
+    // our rotation is identity, translation is identity
+    Rt[0][0] = 1
+    Rt[1][1] = 1
+    Rt[2][2] = 1
+    Rt[0][3] = 0
+    Rt[1][3] = 0
+    Rt[2][3] = 10
+
+    // intrinsic matrix
+    // [f_x, s,   u]
+    // [0,   f_x, v]
+    // [0,   0,   1]
+    // f_x, f_y = focal length (in pixels)
+    // u, v are principle point offset (if you shift the sensor in the camera
+    // s is skew
+    K[0][0] = math.max(WIDTH, HEIGHT) / 2
+    K[1][1] = math.max(WIDTH, HEIGHT) / 2
+    K[2][2] = 1
+
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 }
