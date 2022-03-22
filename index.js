@@ -9,12 +9,13 @@ const SZ = 0.2
 
 
 let confetti = Array(1000)
-const Rt = math.zeros(3, 4)
+
 // extrinsic matrix
 //[1, 0, 0, t_x]
 //[0, 1, 0, t_y]
 //[0, 0, 1, t_z]
 // our rotation is identity, translation is identity
+const Rt = math.zeros(3, 4)
 Rt[0][0] = 1
 Rt[1][1] = 1
 Rt[2][2] = 1
@@ -22,7 +23,6 @@ Rt[0][3] = 0
 Rt[1][3] = 0
 Rt[2][3] = 10
 
-const K = math.zeros(3, 3)
 // intrinsic matrix
 // [f_x, s,   u]
 // [0,   f_x, v]
@@ -30,30 +30,31 @@ const K = math.zeros(3, 3)
 // f_x, f_y = focal length (in pixels)
 // u, v are principle point offset (if you shift the sensor in the camera
 // s is skew
+const K = math.zeros(3, 3)
 K[0][0] = math.max(WIDTH, HEIGHT) / 2
 K[1][1] = math.max(WIDTH, HEIGHT) / 2
 K[2][2] = 1
 
-const colors = {
-    // 'dark'        : '#3E4452', 
-    'red'         : '#e06c75', 
-    'green'       : '#98c379', 
-    'yellow'      : '#e5c07b', 
-    'blue'        : '#61afef', 
-    'magenta'     : '#c678dd', 
-    'cyan'        : '#56b6c2', 
-    'light'       : '#abb2bf', 
-    // 'grey'        : '#5c6370', 
-    'light red'   : '#be5046', 
-    'light yellow': '#d19a66', 
-    // 'white'       : '#ffffff', 
-    // 'black'       : '#282c34',
-}
 
 function random_color() {
+    let colors = {
+        // 'dark'        : '#3E4452', 
+        'red'         : '#e06c75', 
+        'yellow'      : '#d19a66', 
+        'green'       : '#98c379', 
+        'blue'        : '#61afef', 
+        'magenta'     : '#c678dd', 
+        'cyan'        : '#56b6c2', 
+        'light'       : '#abb2bf', 
+        // 'grey'        : '#5c6370', 
+        'light red'   : '#be5046', 
+        'light yellow': '#e5c07b', 
+        // 'white'       : '#ffffff', 
+        // 'black'       : '#282c34',
+    }
     let names = Object.keys(colors)
     let ind = Math.floor(Math.random() * names.length)
-    return names[ind]
+    return colors[names[ind]]
 }
 
 // set size of window and canvas appropriately
@@ -73,7 +74,7 @@ function drawQuad(quad, c) {
     if (quad.length != 4) {
         throw "not a quadrilateral"
     }
-    ctx.fillStyle = colors[c]
+    ctx.fillStyle = c
     ctx.beginPath()
     ctx.moveTo(quad[0][0], quad[0][1])
     ctx.lineTo(quad[1][0], quad[1][1])
@@ -151,10 +152,16 @@ function update(con) {
 }
 
 function init() {
+    random = Math.random
     c_x = 0
     c_y = 0
-    v_x = Math.random() * 16 - 8
-    v_y = Math.random() * 8 + 4
+
+    vel = Math.sqrt(random()) * 12
+    range = TAU / 4
+    theta = random() * range + (TAU / 4 - range / 2)
+
+    v_x = vel * Math.cos(theta)
+    v_y = vel * Math.sin(theta)
     con = {
         c: [[c_x], [c_y], [0]],
         v: [[v_x], [v_y], [0]],
