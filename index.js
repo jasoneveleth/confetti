@@ -103,7 +103,6 @@ function render() {
     confetti = map(update, confetti)
     world_coords = map(extract_verts, confetti)
     image_coords = map(a => map(math.world2image, a), world_coords)
-
     con_colors = map(extract_colors, confetti)
     map2(drawQuad, image_coords, con_colors)
 
