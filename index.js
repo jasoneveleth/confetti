@@ -140,7 +140,9 @@ function extract_colors(con) {
 }
 
 function update(con) {
-    ret = JSON.parse(JSON.stringify(con))
+    // mutate for speed
+    // ret = JSON.parse(JSON.stringify(con))
+    ret = con
     ret.c = math.matadd(con.c, math.matscale(con.v, dt))
     ret.v = math.matadd(con.v, math.matscale(con.a, dt))
     ret.phi = con.phi + con.dphi
