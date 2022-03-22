@@ -14,7 +14,7 @@ let confetti = Array(1000)
 //[1, 0, 0, t_x]
 //[0, 1, 0, t_y]
 //[0, 0, 1, t_z]
-// our rotation is identity, translation is identity
+// our rotation is identity, translation is only in z direction
 const Rt = math.zeros(3, 4)
 Rt[0][0] = 1
 Rt[1][1] = 1
@@ -28,7 +28,7 @@ Rt[2][3] = 10
 // [0,   f_x, v]
 // [0,   0,   1]
 // f_x, f_y = focal length (in pixels)
-// u, v are principle point offset (if you shift the sensor in the camera
+// u, v are principle point offset (shift in the sensor inside the camera)
 // s is skew
 const K = math.zeros(3, 3)
 K[0][0] = math.max(WIDTH, HEIGHT) / 2

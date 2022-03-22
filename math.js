@@ -1,32 +1,21 @@
 class math {
     // takes in 2 matrices returns AB
     static matmul(A, B) {
-        if (A[0].length != B.length) {
-            throw 'invalid sizes'
-        }
+        if (A[0].length != B.length) { throw 'invalid sizes' }
 
         let C = math.zeros(A.length, B[0].length)
-
-        for (let i = 0; i < C.length; i++) {
-            // rows of C (rows of A)
-            for (let j = 0; j < C[0].length; j++) {
-                // columns of C (columns of B)
-                for (let k = 0; k < B.length; k++) {
-                    // columns of A, rows of B
+        for (let i = 0; i < C.length; i++) { // (rows of A)
+            for (let j = 0; j < C[0].length; j++) { // (cols of B)
+                for (let k = 0; k < B.length; k++) { // cols of A, rows of B
                     C[i][j] += A[i][k] * B[k][j]
                 }
             }
         }
-        stop = 1
         return C
     }
 
     static max(a, b) {
-        if (a > b) {
-            return a
-        } else {
-            return b
-        }
+        return a > b ? a : b
     }
 
     static matscale(A, c) {
@@ -54,21 +43,6 @@ class math {
     static zeros(rows, cols) {
         // returns a matrix filled with zeros
         return Array(rows).fill(0).map(_ => Array(cols).fill(0))
-    }
-
-    static printmat(A) {
-        // print matrix
-        let s = "["
-        for (let i = 0; i < A.length; i++) {
-            s += "["
-            for (let j = 0; j < A[0].length; j++) {
-                s += Math.round(A[i][j] * 1000) / 1000
-                s += ", "
-            }
-            s += "]\n"
-        }
-        s += "]"
-        console.log(s)
     }
 
     /* 3d rotation matricies */
@@ -101,7 +75,7 @@ class math {
     }
 
     static world2image(world_coords) {
-        // copy -- mutate for speed
+        // mutate for speed
         // world_coords = JSON.parse(JSON.stringify(world_coords))
 
         // augmented coord
