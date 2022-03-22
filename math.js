@@ -101,7 +101,7 @@ class math {
     }
 
     static world2image(world_coords) {
-        // copy
+        // copy -- mutate for speed
         // world_coords = JSON.parse(JSON.stringify(world_coords))
 
         // augmented coord
