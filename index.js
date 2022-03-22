@@ -154,6 +154,7 @@ function init() {
     c_x = 0
     c_y = 0
 
+    // sqrt to sample uniformly from circle
     vel = Math.sqrt(random()) * 12
     range = TAU / 4
     theta = random() * range + (TAU / 4 - range / 2)
