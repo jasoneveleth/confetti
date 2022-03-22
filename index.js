@@ -164,10 +164,10 @@ function init() {
         c: [[c_x], [c_y], [0]],
         v: [[v_x], [v_y], [0]],
         a: [[0], [-9.81], [0]],
-        theta: Math.random() * TAU,
-        phi: Math.random() * TAU / 2,
-        dphi: Math.random() / 10,
-        dtheta: Math.random() / 10,
+        theta: random() * TAU,
+        phi: random() * TAU / 2,
+        dphi: random() / 10,
+        dtheta: random() / 10,
         color: random_color()
     }
     return con
