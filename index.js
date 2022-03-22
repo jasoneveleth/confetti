@@ -102,7 +102,7 @@ function render() {
 
     confetti = map(update, confetti)
     world_coords = map(extract_verts, confetti)
-    image_coords = map(a => map(math.world2image, a), world_coords)
+    image_coords = map(x => map(math.world2image, x), world_coords)
     con_colors = map(extract_colors, confetti)
     map2(drawQuad, image_coords, con_colors)
 
@@ -177,7 +177,7 @@ function init() {
 function replace(filter, new_obj, l) {
     let new_l = []
     for (let i = 0; i < l.length; i++) {
-        // TODO fast copy so we don't mutate
+        // mutate for speed
         if (filter(l[i])) {
             new_l[i] = l[i]
         } else {
@@ -190,7 +190,7 @@ function replace(filter, new_obj, l) {
 function map(f, l) {
     let new_l = Array(l.length)
     for (let i = 0; i < l.length; i++) {
-        // TODO fast copy so we don't mutate
+        // mutate for speed
         con = f(l[i])
         new_l[i] = con
     }
@@ -202,7 +202,7 @@ function map2(f, l1, l2) {
 
     let new_l = Array(l1.length)
     for (let i = 0; i < l1.length; i++) {
-        // TODO fast copy so we don't mutate
+        // mutate for speed
         new_l[i] = f(l1[i], l2[i])
     }
     return new_l
