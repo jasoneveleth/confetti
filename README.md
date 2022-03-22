@@ -1,9 +1,6 @@
 # Confetti website
 
-We use rotation matrices like in ![this image](images/rot.png).
-
-The idea is we have confetti starting at (rand(-10, 10), 10, 0)
-with coordinates (x,y,z). Which look like:
+Coordinates (x,y,z). Look like:
 
 ```
          ^ y
@@ -16,10 +13,11 @@ with coordinates (x,y,z). Which look like:
 
 And z coming toward you out of the page.
 
-Our camera has no rotation, but is at z = -10.
+Our camera has no transformation, except z translation of -10.
 
 # TODO
 
-* use zbuffer for depth (based on closest vertex)
-* proper handling of recycling
+* use zbuffer for depth (based on closest vertex), and vary the z
+  value
+* proper handling of replacing old confetti
 
