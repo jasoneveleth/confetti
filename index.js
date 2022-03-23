@@ -35,6 +35,8 @@ K[0][0] = math.max(WIDTH, HEIGHT) / 2
 K[1][1] = math.max(WIDTH, HEIGHT) / 2
 K[2][2] = 1
 
+const regex = new RegExp('cum');
+let cum = regex.test(window.location.href) ? 1 : 0
 
 function random_color() {
     let colors = {
@@ -52,6 +54,7 @@ function random_color() {
         // 'white'       : '#ffffff', 
         // 'black'       : '#282c34',
     }
+    if (cum) { colors = {'light': '#abb2bf', 'white': '#ffffff'} }
     let names = Object.keys(colors)
     let ind = Math.floor(Math.random() * names.length)
     return colors[names[ind]]
@@ -95,6 +98,7 @@ function off_screen(con) {
 function render() {
     ctx = document.getElementById('canvas').getContext('2d')
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (cum) { ctx.globalAlpha = 0.4 } else { ctx.globalAlpha = 1.0 }
 
     // replace confetti off screen with new
     confetti = replace(off_screen, init, confetti)
@@ -156,6 +160,7 @@ function init() {
 
     // sqrt to sample uniformly from circle
     vel = Math.sqrt(random()) * 12
+    if (cum) { vel = random() * 4 }
     range = TAU / 4
     theta = random() * range + (TAU / 4 - range / 2)
 
