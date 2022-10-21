@@ -82,7 +82,8 @@ class math {
         world_coords.push([1])
 
         // the camera matrices are resized in window_resize function
-        const image_coord_aug = math.matmul(K, math.matmul(Rt, world_coords))
+        // const image_coord_aug = math.matmul(K, math.matmul(Rt, world_coords))
+        const image_coord_aug = math.matmul(KRt, world_coords) // use precomputed multiplication
         const image_coord = [image_coord_aug[0][0]/image_coord_aug[2][0], image_coord_aug[1][0]/image_coord_aug[2][0]]
         const screen_coord = [WIDTH / 2 - image_coord[0], HEIGHT / 2 - image_coord[1]]
         return screen_coord

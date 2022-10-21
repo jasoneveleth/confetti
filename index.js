@@ -35,6 +35,9 @@ K[0][0] = math.max(WIDTH, HEIGHT) / 2
 K[1][1] = math.max(WIDTH, HEIGHT) / 2
 K[2][2] = 1
 
+// precompute this for speed
+let KRt = math.matmul(K, Rt)
+
 const regex = new RegExp('cum');
 let cum = regex.test(window.location.href) ? 1 : 0
 
@@ -70,6 +73,7 @@ function resizeCanvas() {
     K[1][1] = math.max(WIDTH, HEIGHT) / 2
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
+    KRt = math.matmul(K, Rt)
 }
 
 function drawQuad(quad, c) {
