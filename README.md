@@ -1,19 +1,6 @@
 # Confetti website
 
-Coordinates (x,y,z). Look like:
-
-```
-         ^ y
-         |
-         |
-         |
-         |
-       z *-----------> x
-```
-
-And z coming toward you out of the page.
-
-Our camera has no transformation, except z translation of -10.
+Read about the details on my [blog](https://www.jasoneveleth.com/blog/2023/07/20/confetti/).
 
 # TODO
 
